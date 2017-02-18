@@ -7,20 +7,20 @@
 
 
 function posts(state = [], action) {
-  console.log("The post will change");
-  console.log(state, action);
+  console.log("posts reducer");
 
   switch (action.type) {
     case 'INCREMENT_LIKES' :
-      console.log("Incrementing Likes");
-      const i =  action.index
+      console.log("Incrementing Likes!!");
+      const i = action.index;
       return [
         ...state.slice(0,i),              //before the target
-        {...state[i], likes: state[i]+1}, //new object
-        ...state.slice(i,0)               //after the target
+        {...state[i], likes: state[i].likes + 1}, //new object
+        ...state.slice(i+1)               //after the target
       ]
 
     default:
+      console.log("--return state");
       return state;
   }
 

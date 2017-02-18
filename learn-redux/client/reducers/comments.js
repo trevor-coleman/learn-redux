@@ -1,13 +1,39 @@
-// a reducer takes in two things:
+function postComments( state = [], action ) {
+  console.log("--postComments Reducer")
+  switch ( action.type ) {
+    case 'ADD_COMMENT':
+      console.log("----ADD_COMMENT");
+      return [
+        ...state, {
+          user: action.author,
+          text: action.comment
+        }
+      ]
+      break;
+    case 'REMOVE_COMMENT':
+      console.log("----REMOVE_COMMENT")
+      const i = action.i
+      return [
+        ...state.slice(0,i),
+        ...state.slice(i+1)
+      ]
+      break;
+    default:
+      return state;
+  }
 
-// 1. the action (info about what happened)
-// 2. a copy of current state
+}
 
-// and returns a new store with the updated version
+function comments( state = [], action ) {
+  console.log( "comments reducer" );
 
-
-function comments(state = [], action) {
-  console.log(state, action);
+  if ( typeof action.postId !== 'undefined' ) {
+    return {
+      ...state,
+      [ action.postId ]: postComments( state[action.postId], action )
+    }
+  }
+  console.log("--return state");
   return state;
 }
 

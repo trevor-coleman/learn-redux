@@ -15,6 +15,16 @@ import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 import {Provider} from 'react-redux';
 import store, {history} from './store'
 
+import Raven from 'raven-js';
+import {sentry_url, logException} from './config/sentry'
+
+Raven.config(sentry_url, {
+  tags: {
+    git_commit: 'jfksa;fjdksa;',
+    userLevel: 'editor'
+
+  }
+}).install()
 
 const router = (
   <Provider store={store}>
